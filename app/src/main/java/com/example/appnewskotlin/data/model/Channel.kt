@@ -3,6 +3,6 @@ import java.io.Serializable
 
 
 class Channel(
-    var item: MutableList<Item>? = null): Serializable {
+    var item: MutableList<Item>? = null) {
     constructor() : this( null)
 }

@@ -1,8 +1,11 @@
 package com.example.appnewskotlin.data.model
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import kotlinx.android.parcel.Parcelize
 import java.io.Serializable
 
+@Parcelize
 @Entity(tableName = "item", primaryKeys = ["itemId"])
 class Item (
 
@@ -22,7 +25,7 @@ class Item (
     var category: String? = null,
 
     @ColumnInfo(name = "date")
-    var pubDate: String? = null): Serializable {
+    var pubDate: String? = null): Parcelable {
 
 
     constructor() : this( null, null,null,null,null, null)

@@ -1,19 +1,27 @@
 package com.example.appnewskotlin.mvp.list_news
 
-import androidx.appcompat.app.AppCompatActivity
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.appnewskotlin.R
 import com.example.appnewskotlin.data.model.Item
 import com.example.appnewskotlin.data.network.Network
-import fr.arnaudguyon.xmltojsonlib.XmlToJson
+import com.example.appnewskotlin.mvp.adapters.AdapterRecycle
+import com.example.appnewskotlin.mvp.details_new.DetailNewsActivity
+import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.alert
 
-class ListNewsActivity : AppCompatActivity(), ListNewsInterface.View {
+
+
+class ListNewsActivity : AppCompatActivity(), ListNewsInterface.View, ItemClickListener {
 
 
 
     var mPresenter: ListNewsInterface.Presenter? = null
+    var adapterRecycle: AdapterRecycle? = null
 
 
 
@@ -32,11 +40,18 @@ class ListNewsActivity : AppCompatActivity(), ListNewsInterface.View {
 
 
 
+    @SuppressLint("WrongConstant")
     override fun showNews(listNews: MutableList<Item>?) {
         runOnUiThread {
             if (listNews != null && listNews.isNotEmpty()){
-                for (item in listNews){
-                    Log.i("ITEM",item.title)
+
+                adapterRecycle = AdapterRecycle(this@ListNewsActivity, listNews,this@ListNewsActivity)
+                recycleView.adapter = adapterRecycle
+                val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+                recycleView.layoutManager = layoutManager
+                swipeRefresh.isRefreshing = false
+                swipeRefresh.setOnRefreshListener {
+                    mPresenter?.getNews(Network.QUERY_NEWS_BRAZIL)
                 }
             }else {
                 Log.i("ITEM", "lista vazia")
@@ -46,6 +61,9 @@ class ListNewsActivity : AppCompatActivity(), ListNewsInterface.View {
 
 
 
+    override fun onItemClick(position: Int, news: Item) {
+        startActivity(Intent(this@ListNewsActivity,DetailNewsActivity::class.java).putExtra("news",news))
+    }
 
 
 
