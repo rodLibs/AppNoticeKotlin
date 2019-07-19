@@ -51,4 +51,5 @@ dependencies {
     annotationProcessor 'androidx.room:room-compiler:2.1.0'
     kapt 'androidx.room:room-compiler:2.1.0'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
 }

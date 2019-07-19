@@ -30,8 +30,10 @@ class AdapterRecycle(var context: Context, var listNews: MutableList<Item>, var 
 
     override fun onBindViewHolder(viewHolder: MyViewHolder, position: Int) {
         val news = listNews[position]
-
         viewHolder.txtTitle.text = news.title
+        viewHolder.txtDate.text = news.pubDate
+
+
         viewHolder.itemView.setOnClickListener{
             listener.onItemClick(position, news)
         }
@@ -46,5 +48,6 @@ class AdapterRecycle(var context: Context, var listNews: MutableList<Item>, var 
 
     class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         var txtTitle: TextView = itemView.findViewById(R.id.txtTitle)
+        var txtDate: TextView = itemView.findViewById(R.id.txtDate)
     }
 }
