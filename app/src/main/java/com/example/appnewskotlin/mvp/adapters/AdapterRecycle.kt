@@ -7,17 +7,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.appnewskotlin.R
 import com.example.appnewskotlin.data.model.Item
 import com.example.appnewskotlin.mvp.list_news.ItemClickListener
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 
+class AdapterRecycle(var context: Context, var listNews: ArrayList<Item>, var listener: ItemClickListener): RecyclerView.Adapter<AdapterRecycle.MyViewHolder>(){
 
-
-
-class AdapterRecycle(var context: Context, var listNews: MutableList<Item>, var listener: ItemClickListener): RecyclerView.Adapter<AdapterRecycle.MyViewHolder>(){
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -31,9 +34,11 @@ class AdapterRecycle(var context: Context, var listNews: MutableList<Item>, var 
     override fun onBindViewHolder(viewHolder: MyViewHolder, position: Int) {
         val news = listNews[position]
         viewHolder.txtTitle.text = news.title
-        viewHolder.txtDate.text = news.pubDate
+        viewHolder.txtDate.text = "${news.category} - ${news.pubDate?.replace(" -0000","")}"
 
-
+        if (news.image != null) {
+            Glide.with(context).load(news.image).centerCrop().placeholder(R.drawable.ic_placeholder).into(viewHolder.img)
+        }
         viewHolder.itemView.setOnClickListener{
             listener.onItemClick(position, news)
         }
@@ -45,9 +50,9 @@ class AdapterRecycle(var context: Context, var listNews: MutableList<Item>, var 
 
 
 
-
     class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         var txtTitle: TextView = itemView.findViewById(R.id.txtTitle)
         var txtDate: TextView = itemView.findViewById(R.id.txtDate)
+        var img: ImageView = itemView.findViewById(R.id.img)
     }
 }

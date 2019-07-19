@@ -1,6 +1,7 @@
 package com.example.appnewskotlin.mvp.list_news
 
 import android.content.Context
+import com.example.appnewskotlin.data.model.Item
 import com.example.appnewskotlin.data.model.Rss
 import com.example.appnewskotlin.data.network.CallbackNetwork
 import com.example.appnewskotlin.data.network.Network
@@ -34,9 +35,18 @@ class ListNewsPresenter(var mView: ListNewsInterface.View, var context: Context)
 
     private fun parseXmlToJson(value: String){
         val xmlToJson = XmlToJson.Builder(value).build().toJson()
-        val valueRss = xmlToJson?.getJSONObject("rss").toString()
+        val jsonArray = xmlToJson?.getJSONObject("rss")?.getJSONObject("channel")?.getJSONArray("item")
+        val list = ArrayList<Item>()
+        for (i in 0 until jsonArray?.length()!!){
+            val jsonItem = jsonArray.getJSONObject(i)
 
-        val rss = gson.fromJson(valueRss, Rss::class.java)
-        mView.showNews(rss.channel?.item)
+            var image: String? = null
+            if (jsonItem.has("media:content")){
+                image = jsonItem.getJSONObject("media:content").getString("url")
+            }
+            list.add(Item(null,jsonItem.getString("title"),jsonItem.getString("link"),jsonItem.getString("description"),
+                                   jsonItem.getString("category"),jsonItem.getString("pubDate"),image))
+        }
+        mView.showNews(list)
     }
 }

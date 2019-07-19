@@ -37,11 +37,8 @@ class ListNewsActivity : AppCompatActivity(), ListNewsInterface.View, ItemClickL
 
 
 
-
-
-
     @SuppressLint("WrongConstant")
-    override fun showNews(listNews: MutableList<Item>?) {
+    override fun showNews(listNews: ArrayList<Item>?) {
         runOnUiThread {
             if (listNews != null && listNews.isNotEmpty()){
 

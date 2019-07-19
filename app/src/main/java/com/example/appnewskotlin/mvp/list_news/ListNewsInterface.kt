@@ -8,8 +8,8 @@ interface ListNewsInterface {
         fun getNews(query_news: String)
     }
 
-    interface  View{
-        fun showNews(listNews: MutableList<Item>?)
+    interface View{
+        fun showNews(listNews: ArrayList<Item>?)
         fun showMessageErro(message: String)
     }
 }

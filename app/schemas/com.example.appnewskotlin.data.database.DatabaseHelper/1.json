@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "54cc19f5db3846548136344c220a6bc0",
+    "identityHash": "0e29b4569d570d6d31292daf296993b0",
     "entities": [
       {
         "tableName": "item",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`itemId` INTEGER, `title` TEXT, `link` TEXT, `description` TEXT, `category` TEXT, `date` TEXT, PRIMARY KEY(`itemId`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`itemId` INTEGER, `title` TEXT, `link` TEXT, `description` TEXT, `category` TEXT, `date` TEXT, `image` TEXT, PRIMARY KEY(`itemId`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -43,6 +43,12 @@
             "columnName": "date",
             "affinity": "TEXT",
             "notNull": false
+          },
+          {
+            "fieldPath": "image",
+            "columnName": "image",
+            "affinity": "TEXT",
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -58,7 +64,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '54cc19f5db3846548136344c220a6bc0')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '0e29b4569d570d6d31292daf296993b0')"
     ]
   }
 }

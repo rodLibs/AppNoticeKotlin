@@ -25,8 +25,10 @@ class Item (
     var category: String? = null,
 
     @ColumnInfo(name = "date")
-    var pubDate: String? = null): Parcelable {
+    var pubDate: String? = null,
 
+    @ColumnInfo(name = "image")
+    var image: String? = null): Parcelable {
 
-    constructor() : this( null, null,null,null,null, null)
+    constructor() : this(null, null, null,null,null,null, null)
 }
