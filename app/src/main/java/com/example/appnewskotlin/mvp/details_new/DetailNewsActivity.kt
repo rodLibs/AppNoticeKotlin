@@ -42,7 +42,7 @@ class DetailNewsActivity : AppCompatActivity(), DetailsNewsInterface.View {
 
 
 
-    fun setDataInComponents(){
+    private fun setDataInComponents(){
         if (news != null){
             if (news?.image != null) {
                 Glide.with(this@DetailNewsActivity).load(news?.image).centerCrop().placeholder(R.drawable.ic_placeholder).into(img)

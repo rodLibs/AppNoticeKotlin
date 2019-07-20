@@ -34,10 +34,21 @@ class ListNewsActivity : AppCompatActivity(), ListNewsInterface.View, ItemClickL
         setContentView(R.layout.activity_main)
         supportActionBar?.hide()
 
+        showProgress()
         category = intent.getParcelableExtra("category") as Category
         mPresenter = ListNewsPresenter(this,this)
         mPresenter?.getNews(category?.url!!)
         txtCategory.text = category?.name
+    }
+
+
+    private fun showProgress(){
+        progress.visibility = View.VISIBLE
+        progress.isIndeterminate = true
+    }
+
+    private fun hideProgress(){
+        progress.visibility = View.INVISIBLE
     }
 
 
@@ -67,6 +78,7 @@ class ListNewsActivity : AppCompatActivity(), ListNewsInterface.View, ItemClickL
                 }else{
                     txtCategory.text = category?.name
                 }
+                hideProgress()
         }
     }
 
@@ -79,6 +91,7 @@ class ListNewsActivity : AppCompatActivity(), ListNewsInterface.View, ItemClickL
 
 
     override fun showMessageErro(message: String) {
+        hideProgress()
         setDialog(message)
     }
 
