@@ -46,10 +46,12 @@ class DetailNewsActivity : AppCompatActivity(), DetailsNewsInterface.View {
         if (news != null){
             if (news?.image != null) {
                 Glide.with(this@DetailNewsActivity).load(news?.image).centerCrop().placeholder(R.drawable.ic_placeholder).into(img)
+                txtDescription.text = news?.description?.removeRange(0, news?.description?.indexOf(">")!! - 1)?.replace("/><br />","")
+            }else{
+                txtDescription.text = news?.description
             }
             txtTitle.text = news?.title
             txtDate.text = "${news?.category} - ${news?.pubDate?.replace(" -0000","")}"
-            txtDescription.text = news?.description?.removeRange(0, news?.description?.indexOf(">")!! - 1)?.replace("/><br />","")
 
             if (news?.id != null){
                 imgFavorite.setImageResource(R.drawable.ic_favorite)
