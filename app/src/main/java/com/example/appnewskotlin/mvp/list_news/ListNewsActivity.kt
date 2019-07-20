@@ -28,6 +28,7 @@ class ListNewsActivity : AppCompatActivity(), ListNewsInterface.View, ItemClickL
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        supportActionBar?.hide()
 
         mPresenter = ListNewsPresenter(this,this)
         mPresenter?.getNews(Network.QUERY_NEWS_BRAZIL)

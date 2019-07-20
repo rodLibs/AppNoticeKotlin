@@ -1,24 +1,103 @@
 package com.example.appnewskotlin.mvp.details_new
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
-import android.util.Log
+import android.view.View
+import android.view.WindowManager
+import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.example.appnewskotlin.R
 import com.example.appnewskotlin.data.model.Item
+import kotlinx.android.synthetic.main.activity_detail_news.*
+
 
 class DetailNewsActivity : AppCompatActivity() {
 
 
+    var news: Item? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_news)
+        supportActionBar?.hide()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            val w = window
+            w.setFlags(
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+            )
+        }
 
-
-        var news = intent.getParcelableExtra<Item>("news")
-        Log.i("ITEM",news.title)
+        news = intent.getParcelableExtra("news")
+        setDataInComponents()
     }
 
 
+
+    fun setDataInComponents(){
+        if (news != null){
+            if (news?.image != null) {
+                Glide.with(this@DetailNewsActivity).load(news?.image).centerCrop().placeholder(R.drawable.ic_placeholder).into(img)
+            }
+
+            txtTitle.text = news?.title
+            txtDate.text = "${news?.category} - ${news?.pubDate?.replace(" -0000","")}"
+            txtDescription.text = news?.description?.removeRange(0, news?.description?.indexOf(">")!! - 1)?.replace("/><br />","")
+        }
+    }
+
+
+
+    fun btFavorite(v: View){
+
+    }
+
+    fun btShare(v: View){
+        val sendIntent = Intent()
+        sendIntent.action = Intent.ACTION_SEND
+        sendIntent.putExtra(Intent.EXTRA_TEXT,"${news?.title}\n ${news?.link}")
+        sendIntent.type = "text/plain"
+        startActivity(sendIntent)
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

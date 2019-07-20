@@ -1,22 +1,17 @@
 package com.example.appnewskotlin.mvp.adapters
 
 import android.content.Context
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Filter
-import android.widget.Filterable
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.appnewskotlin.R
 import com.example.appnewskotlin.data.model.Item
 import com.example.appnewskotlin.mvp.list_news.ItemClickListener
-import java.text.SimpleDateFormat
-import java.util.*
-import kotlin.collections.ArrayList
 
 
 class AdapterRecycle(var context: Context, var listNews: ArrayList<Item>, var listener: ItemClickListener): RecyclerView.Adapter<AdapterRecycle.MyViewHolder>(){
@@ -37,7 +32,9 @@ class AdapterRecycle(var context: Context, var listNews: ArrayList<Item>, var li
         viewHolder.txtDate.text = "${news.category} - ${news.pubDate?.replace(" -0000","")}"
 
         if (news.image != null) {
-            Glide.with(context).load(news.image).centerCrop().placeholder(R.drawable.ic_placeholder).into(viewHolder.img)
+            Glide.with(context).load(news.image).centerCrop().placeholder(R.color.colorGrayBackgroundDarkFont).into(viewHolder.img)
+        }else{
+            Glide.with(context).load("").placeholder(R.color.colorGrayBackgroundDarkFont).into(viewHolder.img)
         }
         viewHolder.itemView.setOnClickListener{
             listener.onItemClick(position, news)
