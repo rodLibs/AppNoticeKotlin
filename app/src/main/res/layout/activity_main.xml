@@ -30,6 +30,7 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp" app:srcCompat="@drawable/ic_favorite"
                 android:id="@+id/imageView"
+                android:onClick="btFavorite"
                 app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="16dp"
                 android:layout_marginTop="16dp"
                 app:layout_constraintTop_toTopOf="parent"/>

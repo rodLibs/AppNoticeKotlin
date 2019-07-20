@@ -12,9 +12,7 @@ class Network (private var context: Context) {
     private var URL: String = " https://g1.globo.com/dynamo/"
 
 
-    companion object {
-        var QUERY_NEWS_BRAZIL: String = "rss2.xml"
-    }
+
 
 
 

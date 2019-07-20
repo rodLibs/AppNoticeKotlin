@@ -1,33 +1,44 @@
 package com.example.appnewskotlin.mvp.list_news
 
 import android.content.Context
+import com.example.appnewskotlin.data.database.DatabaseHelper
 import com.example.appnewskotlin.data.model.Item
 import com.example.appnewskotlin.data.model.Rss
 import com.example.appnewskotlin.data.network.CallbackNetwork
 import com.example.appnewskotlin.data.network.Network
 import com.google.gson.Gson
 import fr.arnaudguyon.xmltojsonlib.XmlToJson
+import org.jetbrains.anko.doAsync
 
 class ListNewsPresenter(var mView: ListNewsInterface.View, var context: Context): ListNewsInterface.Presenter {
 
 
-    val gson = Gson()
+    var databaseHelper = DatabaseHelper.getInstance(context)
+
 
 
     override fun getNews(query_news: String) {
-        val net = Network(context)
-        net.getNews(query_news, object: CallbackNetwork{
-            override fun onSucess(code: Int, response: String?) {
-               if (code == 200){
-                   parseXmlToJson(response!!)
-               } else{
-                   mView.showMessageErro("$code")
-               }
+        if (query_news == "favorites"){
+            doAsync {
+                val listNews = databaseHelper?.itemDAO()?.getAllNews()
+                mView.showNews(ArrayList(listNews))
             }
-            override fun onError(code: Int, error: String?) {
-                mView.showMessageErro("$error $code")
-            }
-        })
+        }else {
+            val net = Network(context)
+            net.getNews(query_news, object : CallbackNetwork {
+                override fun onSucess(code: Int, response: String?) {
+                    if (code == 200) {
+                        parseXmlToJson(response!!)
+                    } else {
+                        mView.showMessageErro("$code")
+                    }
+                }
+
+                override fun onError(code: Int, error: String?) {
+                    mView.showMessageErro("$error $code")
+                }
+            })
+        }
     }
 
 
