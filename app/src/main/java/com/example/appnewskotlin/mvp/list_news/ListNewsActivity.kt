@@ -1,15 +1,15 @@
 package com.example.appnewskotlin.mvp.list_news
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.appnewskotlin.R
+import com.example.appnewskotlin.data.model.Category
 import com.example.appnewskotlin.data.model.Item
-import com.example.appnewskotlin.data.network.Network
 import com.example.appnewskotlin.mvp.adapters.AdapterRecycle
 import com.example.appnewskotlin.mvp.details_new.DetailNewsActivity
 import com.example.appnewskotlin.util.Constants
@@ -24,6 +24,8 @@ class ListNewsActivity : AppCompatActivity(), ListNewsInterface.View, ItemClickL
 
     var mPresenter: ListNewsInterface.Presenter? = null
     var adapterRecycle: AdapterRecycle? = null
+    var isFavorite = false
+    var category: Category? = null
 
 
 
@@ -32,13 +34,16 @@ class ListNewsActivity : AppCompatActivity(), ListNewsInterface.View, ItemClickL
         setContentView(R.layout.activity_main)
         supportActionBar?.hide()
 
+        category = intent.getParcelableExtra("category") as Category
         mPresenter = ListNewsPresenter(this,this)
-        mPresenter?.getNews(Constants.QUERY_NEWS_BRAZIL)
+        mPresenter?.getNews(category?.url!!)
+        txtCategory.text = category?.name
     }
 
 
 
     fun btFavorite(v: View){
+        isFavorite = true
         mPresenter?.getNews(Constants.FAVORITE)
     }
 
@@ -54,7 +59,13 @@ class ListNewsActivity : AppCompatActivity(), ListNewsInterface.View, ItemClickL
                 recycleView.layoutManager = layoutManager
                 swipeRefresh.isRefreshing = false
                 swipeRefresh.setOnRefreshListener {
-                    mPresenter?.getNews(Constants.QUERY_NEWS_BRAZIL)
+                    isFavorite = false
+                    mPresenter?.getNews(category?.url!!)
+                }
+                if (isFavorite) {
+                    txtCategory.text = getString(R.string.news_favorites)
+                }else{
+                    txtCategory.text = category?.name
                 }
         }
     }
@@ -62,7 +73,7 @@ class ListNewsActivity : AppCompatActivity(), ListNewsInterface.View, ItemClickL
 
 
     override fun onItemClick(position: Int, news: Item) {
-        startActivity(Intent(this@ListNewsActivity,DetailNewsActivity::class.java).putExtra("news",news))
+        startActivityForResult(Intent(this@ListNewsActivity,DetailNewsActivity::class.java).putExtra("news",news),100)
     }
 
 
@@ -70,6 +81,7 @@ class ListNewsActivity : AppCompatActivity(), ListNewsInterface.View, ItemClickL
     override fun showMessageErro(message: String) {
         setDialog(message)
     }
+
 
 
     private fun setDialog(message: String){
@@ -80,6 +92,17 @@ class ListNewsActivity : AppCompatActivity(), ListNewsInterface.View, ItemClickL
                     it.dismiss()
                 }
             }.show()
+        }
+    }
+
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 100 && resultCode == Activity.RESULT_OK){
+            if (isFavorite) {
+                mPresenter?.getNews(Constants.FAVORITE)
+            }
         }
     }
 }

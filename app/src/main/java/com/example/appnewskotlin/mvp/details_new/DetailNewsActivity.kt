@@ -1,5 +1,6 @@
 package com.example.appnewskotlin.mvp.details_new
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -17,6 +18,7 @@ class DetailNewsActivity : AppCompatActivity(), DetailsNewsInterface.View {
 
     var news: Item? = null
     var mPresenter: DetailsNewsInterface.Presenter? = null
+    var hasAltered = false
 
 
 
@@ -77,10 +79,10 @@ class DetailNewsActivity : AppCompatActivity(), DetailsNewsInterface.View {
 
 
 
-
     override fun showResult(news: Item?) {
         runOnUiThread {
             if (mPresenter != null){
+                hasAltered = true
                 if (news?.id != null){
                     imgFavorite.setImageResource(R.drawable.ic_favorite)
                 } else{
@@ -89,6 +91,17 @@ class DetailNewsActivity : AppCompatActivity(), DetailsNewsInterface.View {
             }
         }
     }
+
+
+
+    override fun onBackPressed() {
+        if (hasAltered){
+            setResult(Activity.RESULT_OK)
+        }
+        finish()
+    }
+
+
 
 
     override fun onDestroy() {

@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">AppNewsKotlin</string>
+    <string name="news_favorites">Favoritas</string>
+    <string name="news">Noticias</string>
+    <string name="categori">Categorias</string>
 </resources>
