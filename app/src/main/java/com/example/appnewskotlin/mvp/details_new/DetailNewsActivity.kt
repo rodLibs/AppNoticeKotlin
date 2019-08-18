@@ -9,7 +9,7 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.appnewskotlin.R
-import com.example.appnewskotlin.data.model.Item
+import com.example.appnewskotlin.data.database.entity.Item
 import kotlinx.android.synthetic.main.activity_detail_news.*
 
 

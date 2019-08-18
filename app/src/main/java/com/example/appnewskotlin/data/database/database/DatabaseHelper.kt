@@ -1,13 +1,11 @@
-package com.example.appnewskotlin.data.database
+package com.example.appnewskotlin.data.database.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.room.migration.Migration
-import androidx.sqlite.db.SupportSQLiteDatabase
-import com.example.appnewskotlin.data.model.Item
-
+import com.example.appnewskotlin.data.database.dao.ItemDao
+import com.example.appnewskotlin.data.database.entity.Item
 
 
 @Database(entities = arrayOf(Item::class), version = 1)

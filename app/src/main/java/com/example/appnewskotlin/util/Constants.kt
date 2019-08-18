@@ -1,7 +1,5 @@
 package com.example.appnewskotlin.util
 
-import com.example.appnewskotlin.data.model.Category
-
 class Constants {
 
     companion object {

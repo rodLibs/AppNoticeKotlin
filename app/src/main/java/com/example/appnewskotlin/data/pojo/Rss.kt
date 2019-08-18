@@ -1,6 +1,4 @@
-package com.example.appnewskotlin.data.model
-import java.io.Serializable
-
+package com.example.appnewskotlin.data.pojo
 
 
 class Rss(

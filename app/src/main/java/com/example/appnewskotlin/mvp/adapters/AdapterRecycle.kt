@@ -6,11 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.appnewskotlin.R
-import com.example.appnewskotlin.data.model.Item
+import com.example.appnewskotlin.data.database.entity.Item
 import com.example.appnewskotlin.mvp.list_news.ItemClickListener
 
 

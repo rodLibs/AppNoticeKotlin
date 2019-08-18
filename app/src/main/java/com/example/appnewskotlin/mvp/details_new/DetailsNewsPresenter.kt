@@ -1,8 +1,8 @@
 package com.example.appnewskotlin.mvp.details_new
 
 import android.content.Context
-import com.example.appnewskotlin.data.database.DatabaseHelper
-import com.example.appnewskotlin.data.model.Item
+import com.example.appnewskotlin.data.database.database.DatabaseHelper
+import com.example.appnewskotlin.data.database.entity.Item
 import org.jetbrains.anko.doAsync
 import java.util.*
 
@@ -10,24 +10,21 @@ class DetailsNewsPresenter(var mView: DetailsNewsInterface.View, var context: Co
 
 
 
-    var databaseHelper = DatabaseHelper.getInstance(context)
-
+    var model: DetailsNewsInterface.Model = DetailsNewsModel(this, context)
 
 
     override fun insertNewsDatabase(news: Item?) {
-        doAsync {
-            news?.id = Date().time
-            databaseHelper?.itemDAO()?.insert(news)
-            mView.showResult(news)
-        }
+        model.requestInsertNewsDatabase(news)
+    }
+    override fun returnInsertNewsDatabase(news: Item?) {
+        mView.showResult(news)
     }
 
 
     override fun removeNewsDatabase(news: Item?) {
-        doAsync {
-            databaseHelper?.itemDAO()?.delete(news)
-            news?.id = null
-            mView.showResult(news)
-        }
+        model.requestRemoveNewsDatabase(news)
+    }
+    override fun returnRemoveNewsDatabase(news: Item?) {
+        mView.showResult(news)
     }
 }

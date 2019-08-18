@@ -8,8 +8,8 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.appnewskotlin.R
-import com.example.appnewskotlin.data.model.Category
-import com.example.appnewskotlin.data.model.Item
+import com.example.appnewskotlin.data.pojo.Category
+import com.example.appnewskotlin.data.database.entity.Item
 import com.example.appnewskotlin.mvp.adapters.AdapterRecycle
 import com.example.appnewskotlin.mvp.details_new.DetailNewsActivity
 import com.example.appnewskotlin.util.Constants

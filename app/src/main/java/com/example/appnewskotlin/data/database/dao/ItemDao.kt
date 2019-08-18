@@ -1,7 +1,7 @@
-package com.example.appnewskotlin.data.database
+package com.example.appnewskotlin.data.database.dao
 
 import androidx.room.*
-import com.example.appnewskotlin.data.model.Item
+import com.example.appnewskotlin.data.database.entity.Item
 
 @Dao
 interface ItemDao {

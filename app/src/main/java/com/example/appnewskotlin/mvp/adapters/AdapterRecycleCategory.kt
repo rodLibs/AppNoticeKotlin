@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appnewskotlin.R
-import com.example.appnewskotlin.data.model.Category
+import com.example.appnewskotlin.data.pojo.Category
 import com.example.appnewskotlin.mvp.list_category.ItemClickCategoryListener
 
 

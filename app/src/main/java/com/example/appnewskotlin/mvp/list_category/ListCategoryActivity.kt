@@ -5,10 +5,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.appnewskotlin.R
-import com.example.appnewskotlin.data.model.Category
+import com.example.appnewskotlin.data.pojo.Category
 import com.example.appnewskotlin.mvp.adapters.AdapterRecycleCategory
 import com.example.appnewskotlin.mvp.list_news.ListNewsActivity
 import kotlinx.android.synthetic.main.activity_list_category.*
@@ -35,7 +33,6 @@ class ListCategoryActivity : AppCompatActivity(), ListCategoryInterface.View, It
         mPresenter = ListCategoryPresenter(this@ListCategoryActivity,this@ListCategoryActivity)
         mPresenter?.getListCategory()
         txtDate.text = dfDate.format(Date())
-
     }
 
 
