@@ -24,7 +24,7 @@ abstract class DatabaseHelper: RoomDatabase() {
                 synchronized(DatabaseHelper::class) {
                     INSTANCE = Room.databaseBuilder(
                         context, DatabaseHelper::class.java,
-                        "neovero_database.db")
+                        "news_database.db")
                         .build()
                 }
             }
